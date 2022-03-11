@@ -24,10 +24,10 @@ const reportPost = (id) => {
     reportedPostsId.push(id);
     const remainingPosts = posts.filter((post) => !reportedPostsId.includes(post.id));
     showPosts(remainingPosts);
+    console.log(reportedPostsId);
 };
 
 const displayContent = (text) => {
-  // console.log(text);
   if(text.length>30){
    return text.slice(0, 30) + "<span class='fw-bold'>... read more</span>";
   }
@@ -46,12 +46,14 @@ const switchTab = (id) => {
         document.getElementById( "liked" ).style.display = "block";
         document.getElementById( "posts" ).style.display = "none";
         document.getElementById( "reported" ).style.display = "none";
+        document.getElementById( "liked" ).innerHTML = '';
 
         displayLikedPosts();
     } else {
         document.getElementById( "reported" ).style.display = "block";
         document.getElementById( "posts" ).style.display = "none";
         document.getElementById( "liked" ).style.display = "none";
+        document.getElementById( "reported" ).innerHTML = '';
 
         displayReportedPosts();
     }
@@ -158,8 +160,10 @@ const displayLikedPosts = () => {
 };
 
 const displayReportedPosts = () => {
-    const reportedPosts = getReportedPosts();
-    posts.forEach((post) => {
+  // document.getElementById( "reported" ).innerHTML = "";
+    let reportedPosts = getReportedPosts();
+    console.log(reportedPosts);
+    reportedPosts.forEach((post) => {
         const div = createPost(post);
         document.getElementById( "reported" ).appendChild(div);
     });
